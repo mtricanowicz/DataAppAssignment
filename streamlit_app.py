@@ -38,17 +38,20 @@ st.write("### (5) use the delta option in the overall profit margin metric to sh
 
 select_options=df["Category"].unique()
 
-st.selectbox(label="Choose a Category", options=select_options)
+category=st.selectbox(label="Choose a Category", options=select_options)
 
 cat_subcat=df[["Category","Sub_Category"]].drop_duplicates().sort_values(by=["Category", "Sub_Category"]).reset_index(drop=True)
 subcats_furniture=cat_subcat["Sub_Category"].where(cat_subcat["Category"]=="Furniture").dropna()
 subcats_officesupplies=cat_subcat["Sub_Category"].where(cat_subcat["Category"]=="Office Supplies").dropna()
 subcats_technology=cat_subcat["Sub_Category"].where(cat_subcat["Category"]=="Technology").dropna()
 
-multiselect_options={
+multiselect_options_map={
     "Furniture":subcats_furniture,
     "Office Supplies":subcats_officesupplies,
     "Technology":subcats_technology
     }
-st.multiselect(label="Choose a Subcategory", options=multiselect_options)
+
+multiselect_options=multiselect_options_map.get(category, [])
+
+subcategory=st.multiselect(label="Choose a Subcategory", options=multiselect_options)
 
