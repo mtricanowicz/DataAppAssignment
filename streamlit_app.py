@@ -52,7 +52,7 @@ multiselect_options_map={
     "Technology":subcats_technology
     }
 multiselect_options=multiselect_options_map.get(category, [])
-subcategory=st.multiselect(label="Choose a Subcategory", options=multiselect_options)
+subcategory=st.multiselect(label="Choose one or more Subcategories", options=multiselect_options)
 
 # (3): show a line chart of sales for the selected items in (2)
 selected_sales_by_month=df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Sales']).dropna().groupby(pd.Grouper(freq='ME')).sum()
