@@ -55,6 +55,6 @@ multiselect_options=multiselect_options_map.get(category, [])
 
 subcategory=st.multiselect(label="Choose a Subcategory", options=multiselect_options)
 
-selected_sales_by_month=df.where(df["Sub_Category"]=="Tables").filter(items=['Sales']).dropna().groupby(pd.Grouper(freq='M')).sum()
+selected_sales_by_month=df.where(df["Sub_Category"]==subcategory).filter(items=['Sales']).dropna().groupby(pd.Grouper(freq='M')).sum()
 st.dataframe(selected_sales_by_month)
 st.line_chart(selected_sales_by_month, y="Sales")
