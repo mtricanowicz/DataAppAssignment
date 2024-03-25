@@ -68,6 +68,6 @@ selected_total_profit=st.metric(label="Total profit for selected subcategories:"
 margin_calc=round((profit_calc/sales_calc)*100,2)
 total_overall_margin_calc=round(((df.filter(items=['Profit']).dropna().sum())["Profit"]/(df.filter(items=['Sales']).dropna().sum())["Sales"])*100, 2)
 margin_delta_calc=round(margin_calc-total_overall_margin_calc, 2)
-selected_overall_margin=st.metric(label="Overall margin for selected subcategories and comparison to total portfolio margin:", value=f"{margin_calc}%", delta=f"{margin_delta_calc}%")
+selected_overall_margin=st.metric(label="Overall margin for selected subcategories and comparison to total product portfolio margin:", value=f"{margin_calc}%", delta=f"{margin_delta_calc}%")
 
 
