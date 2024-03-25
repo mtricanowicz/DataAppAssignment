@@ -33,7 +33,7 @@ st.write("## My additions:")
 #st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
 #st.write("### (2) add a multi-select for Sub_Category *in the selected Category (1)* (https://docs.streamlit.io/library/api-reference/widgets/st.multiselect)")
 #st.write("### (3) show a line chart of sales for the selected items in (2)")
-st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
+#st.write("### (4) show three metrics (https://docs.streamlit.io/library/api-reference/data/st.metric) for the selected items in (2): total sales, total profit, and overall profit margin (%)")
 st.write("### (5) use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)")
 
 # (1): add a drop down for Category
@@ -58,14 +58,14 @@ selected_sales_by_month=df.where(df["Sub_Category"].isin(subcategory)).filter(it
 st.line_chart(selected_sales_by_month, y="Sales")
 
 # (4): show three metrics for the selected items in (2): total sales, total profit, and overall profit margin (%)
+# (5): use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)
 sales_calc=round((df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Sales']).dropna().sum())["Sales"],2)
 selected_total_sales=st.metric(label="Total sales for selected subcategories:", value=f"${sales_calc}")
 profit_calc=round((df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Profit']).dropna().sum())["Profit"],2)
 selected_total_profit=st.metric(label="Total profit for selected subcategories:", value=f"${profit_calc}")
 margin_calc=round((profit_calc/sales_calc)*100,2)
-total_overall_margin=round(((df.filter(items=['Profit']).dropna().sum())["Profit"]/(df.filter(items=['Sales']).dropna().sum())["Sales"])*100,2)
-selected_overall_margin=st.metric(label="Overall margin for selected subcategories:", value=f"{margin_calc}%", delta=total_overall_margin)
-
-# (5): use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)
+total_overall_margin_calc=round(((df.filter(items=['Profit']).dropna().sum())["Profit"]/(df.filter(items=['Sales']).dropna().sum())["Sales"])*100,2)
+margin_delta_calc=margin_calc-total_overall_margin_calc
+selected_overall_margin=st.metric(label="Overall margin for selected subcategories:", value=f"{margin_calc}%", delta=margin_delta_calc)
 
 
