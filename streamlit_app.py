@@ -54,14 +54,14 @@ multiselect_options=multiselect_options_map.get(category, [])
 subcategory=st.multiselect(label="Choose a Subcategory", options=multiselect_options)
 
 # (3): show a line chart of sales for the selected items in (2)
-selected_sales_by_month=df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Sales']).dropna().groupby(pd.Grouper(freq='M')).sum()
+selected_sales_by_month=df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Sales']).dropna().groupby(pd.Grouper(freq='ME')).sum()
 st.line_chart(selected_sales_by_month, y="Sales")
 
 # (4): show three metrics for the selected items in (2): total sales, total profit, and overall profit margin (%)
 selected_total_sales=st.metric(label="Total sales for selected subcategories:", value=df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Sales']).dropna().sum())
 selected_total_profit=st.metric(label="Total profit for selected subcategories:", value=df.where(df["Sub_Category"].isin(subcategory)).filter(items=['Profit']).dropna().sum())
-st.print(selected_total_sales.value)
-st.print(selected_total_profit.value)
+st.write(selected_total_sales.value)
+st.write(selected_total_profit.value)
 selected_overall_margin=st.metric(label="Overall margin for selected subcategories:", value=(selected_total_profit.value/selected_total_sales.value)*100)
 
 # (5): use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)
