@@ -58,7 +58,9 @@ selected_sales_by_month=df.where(df["Sub_Category"].isin(subcategory)).filter(it
 st.line_chart(selected_sales_by_month, y="Sales")
 
 # (4): show three metrics for the selected items in (2): total sales, total profit, and overall profit margin (%)
-
+selected_total_sales=st.metric(label="Total sales for selected subcategories", value=df.where(df["Sub_Category"]=="Tables").filter(items=['Sales']).dropna().sum())
+selected_total_profit=st.metric(label="Total profit for selected subcategories", value=df.where(df["Sub_Category"]=="Tables").filter(items=['Profit']).dropna().sum())
+selected_overall_margin=st.metric(label="Overall margin for selected subcategories", value=selected_total_profit["Profit"]/selected_total_sales["Sales"])
 
 # (5): use the delta option in the overall profit margin metric to show the difference between the overall average profit margin (all products across all categories)
 
