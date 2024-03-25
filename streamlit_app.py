@@ -30,7 +30,7 @@ st.dataframe(sales_by_month)
 st.line_chart(sales_by_month, y="Sales")
 
 st.write("## My additions:")
-st.write("### Michael Tricanowicz | DSBA-5122 | Data App Assignment")
+st.write("Michael Tricanowicz | DSBA-5122 | Data App Assignment")
 #st.write("### (1) add a drop down for Category (https://docs.streamlit.io/library/api-reference/widgets/st.selectbox)")
 #st.write("### (2) add a multi-select for Sub_Category *in the selected Category (1)* (https://docs.streamlit.io/library/api-reference/widgets/st.multiselect)")
 #st.write("### (3) show a line chart of sales for the selected items in (2)")
